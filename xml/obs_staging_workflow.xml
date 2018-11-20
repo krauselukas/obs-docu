@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter
+[
+  <!ENTITY % entities SYSTEM "entity-decl.ent">
+    %entities;
+]>
+<chapter version="5.1" xml:id="cha.obs.stagingworkflow"
+ xmlns="http://docbook.org/ns/docbook"
+ xmlns:xi="http://www.w3.org/2001/XInclude"
+ xmlns:xlink="http://www.w3.org/1999/xlink" >
+ <title>Staging Workflow</title>
+ <para/>
+ <remark>TBD</remark>
+<!--
+ <sect1>
+  <title>Handling Dependencies</title>
+  <para/>
+  <remark>TBD</remark>
+ </sect1>
+-->
+ <sect1 xml:id="sec.obs.staging.workflow.usage">
+  <title>Working with requests</title>
+  <para>One of the main features of the staging workflow is assigning incoming requests to different staging projects which is described in this section.</para>
+
+  <sect2 xml:id="sec.obs.staging.workflow.assign.request">
+    <title>Assign requests into a staging project</title>
+    <para>
+      Our main project openSUSE:Factory received requests with number 1 and 2. 
+      We would like to group these two requests together and move them into the staging project openSUSE:Factory:Staging:A.
+      This can be done with the following command which will create a link of the source package in openSUSE:Factory:Staging:A.
+    </para>
+    <screen>
+      geeko > <command>osc</command> api -X POST '/staging_project/openSUSE:Factory:Staging:A/staged_requests' -d '&lt;requests&gt;&lt;number&gt;1&lt;/number&gt;&lt;number&gt;2&lt;/number>&lt;/requests&gt;'
+    </screen>
+  </sect2>
+
+  <sect2 xml:id="sec.obs.staging.workflow.remove.request">
+    <title>Remove requests into Staging Project</title>
+    <para>
+      When we are done testing of the staging project openSUSE:Factory:Staging:A we need to remove the requests 1 and 2 again.
+      The following command will remove the package links from openSUSE:Factory:Staging:A. 
+    </para>
+    <screen>
+      geeko > <command>osc</command> api -X DELETE '/staging_project/$staging_project_name/staged_requests' -d '&lt;requests&gt;&lt;number&gt;1&lt;/number&gt;&lt;number&gt;2&lt;/number>&lt;/requests&gt;'
+    </screen>
+  </sect2>
+
+  <sect2 xml:id="sec.obs.staging.workflow.staging.request">
+    <title>List requests of a Staging Project</title>
+    <para>Listing all requests which are currently assigned to openSUSE:Factory:Staging:A can be done with the following command.</para>
+    <screen>
+      geeko > <command>osc</command> api '/staging_project/openSUSE:Factory:Staging:A/staged_requests'
+    </screen>
+  </sect2>
+ </sect1>
+
+</chapter>
