@@ -2,9 +2,9 @@ name: deploy-to-obs-landing
 on:
   push:
     branches:
-      - master
+      - automate_doc_deployment_test
     paths-ignore:
-      - '.github/workflows/ci.yaml'
+      #- '.github/workflows/ci.yaml'
       - '.travis.yml'
       - 'Dockerfile'
       - 'Dockerfile.base'
@@ -26,7 +26,7 @@ jobs:
       - name: Checkout obs-landing repo
         uses: actions/checkout@v3
         with:
-          repository: openSUSE/obs-landing
+          repository: krauselukas/obs-landing
           path: obs-landing
           ssh-key: ${{ secrets.DEPLOY_KEY_PRIVATE }}
       - name: build
@@ -37,7 +37,6 @@ jobs:
           run: |
             pushd /github/workspace/
             for doc in obs-admin-guide obs-user-guide; do
-              ROOTID=${doc%-guide}
               source ./DC-$doc || exit 1
 
               # update html
@@ -45,7 +44,7 @@ jobs:
               daps --verbosity=3 pdf || exit 1
 
               rm -rf obs-landing/help/manuals/${doc} || exit 1
-              cp -aL build/${doc}/html/$ROOTID obs-landing/help/manuals/${doc} || exit 1
+              cp -aL build/${doc}/html/${ROOTID} obs-landing/help/manuals/${doc} || exit 1
 
               # update pdf
               mv build/${doc}/${ROOTID}_color_en.pdf obs-landing/files/manuals/${doc}.pdf || exit 1
