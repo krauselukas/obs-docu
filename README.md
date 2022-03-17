@@ -67,3 +67,5 @@ The first steps to update the documentation are:
 - Wait until your changes are merged.
 
 Once the Pull Request is approved and merged, your changes are ready to be deployed. However, the OBS documentation is hosted online at openbuildservice.org, so you should move to [obs-landing](https://github.com/openSUSE/obs-landing) repository where you'll find the [instructions to deploy](https://github.com/openSUSE/obs-landing#updating-obs-documentation).
+
+## TEST
